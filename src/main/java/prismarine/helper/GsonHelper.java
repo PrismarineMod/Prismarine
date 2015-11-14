@@ -24,7 +24,7 @@ public final class GsonHelper {
 
     public static <T> Optional<T> loadInstance(String filename, Class<T> clazz) {
         File file = Prismarine.getFile(filename);
-        if (!file.exists()) {
+        if (file.exists()) {
             try {
                 String json = Joiner.on('\n').join(Files.readLines(file, Charsets.UTF_8));
                 return Optional.of(gson.fromJson(json, clazz));

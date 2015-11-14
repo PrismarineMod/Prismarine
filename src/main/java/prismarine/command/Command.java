@@ -5,6 +5,7 @@ import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.BlockPos;
+import prismarine.permission.PermissionProvider;
 
 import java.util.Collections;
 import java.util.List;
@@ -15,12 +16,14 @@ public final class Command implements ICommand {
     private final String usage;
     private final List<String> aliasList;
     private final CommandExecutor executor;
+    private final String permission;
 
     private Command(Builder builder) {
         this.name = builder.name;
         this.usage = builder.usage;
         this.aliasList = ImmutableList.copyOf(builder.aliases);
         this.executor = builder.executor;
+        this.permission = builder.permission;
     }
 
     @Override
@@ -46,7 +49,7 @@ public final class Command implements ICommand {
 
     @Override
     public boolean canCommandSenderUseCommand(ICommandSender sender) {
-        return true;
+        return PermissionProvider.hasPermission(sender, permission);
     }
 
     @Override
@@ -74,12 +77,14 @@ public final class Command implements ICommand {
         private final CommandExecutor executor;
         private String usage;
         private String[] aliases;
+        private String permission;
 
         private Builder(String name, CommandExecutor executor) {
             this.name = name;
             this.executor = executor;
             this.usage = "";
             this.aliases = new String[0];
+            this.permission = null;
         }
 
         public Builder setUsage(String usage) {
@@ -89,6 +94,11 @@ public final class Command implements ICommand {
 
         public Builder setAliases(String... aliases) {
             this.aliases = aliases;
+            return this;
+        }
+
+        public Builder setPermission(String permission) {
+            this.permission = permission;
             return this;
         }
 

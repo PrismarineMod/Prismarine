@@ -34,6 +34,7 @@ public final class ModuleManager {
             Optional<?> optional = GsonHelper.loadInstance(module.filename, module.clazz);
             Object instance = optional.isPresent() ? optional.get() : ReflectionHelper.newInstance(module.clazz);
             bus.register(instance);
+            ReflectionHelper.setAnnotatedField(module.clazz, Module.Instance.class, instance);
             module.instance = instance;
         }
         bus.post(new ModuleEvent.Load(this));
@@ -67,6 +68,7 @@ public final class ModuleManager {
         for (Metadata module : moduleList) {
             if (module.instance != null) {
                 bus.unregister(module.instance);
+                ReflectionHelper.setAnnotatedField(module.clazz, Module.Instance.class, null);
                 module.instance = null;
             }
         }

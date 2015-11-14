@@ -3,7 +3,10 @@ package prismarine.helper;
 import com.google.common.base.Throwables;
 import com.google.common.collect.Maps;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.Map;
 
 public final class ReflectionHelper {
@@ -33,6 +36,19 @@ public final class ReflectionHelper {
             return findConstructor(clazz).newInstance();
         } catch (Exception e) {
             throw Throwables.propagate(e);
+        }
+    }
+
+    public static void setAnnotatedField(Class<?> clazz, Class<? extends Annotation> annotationClass, Object value) {
+        for (Field field : clazz.getDeclaredFields()) {
+            if (Modifier.isStatic(field.getModifiers()) && field.isAnnotationPresent(annotationClass)) {
+                field.setAccessible(true);
+                try {
+                    field.set(null, value);
+                } catch (IllegalAccessException e) {
+                    throw Throwables.propagate(e);
+                }
+            }
         }
     }
 }

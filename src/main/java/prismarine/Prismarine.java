@@ -10,6 +10,7 @@ import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.logging.log4j.Logger;
 import prismarine.module.ModuleManager;
+import prismarine.permission.PermissionProvider;
 import prismarine.session.SessionProvider;
 
 import java.io.File;
@@ -33,6 +34,7 @@ public enum Prismarine {
     public void onPreInitialization(FMLPreInitializationEvent event) {
         logger = event.getModLog();
         moduleManager.registerModule(SessionProvider.class);
+        moduleManager.registerModule(PermissionProvider.class);
     }
 
     @Mod.EventHandler

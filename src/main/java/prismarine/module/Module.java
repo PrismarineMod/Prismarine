@@ -10,4 +10,9 @@ import java.lang.annotation.Target;
 public @interface Module {
 
     String filename();
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.FIELD)
+    @interface Instance {
+    }
 }

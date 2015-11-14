@@ -57,7 +57,8 @@ public final class GsonHelper {
         }
     }
 
-    private static final class MultiMapAdapter<K, V> implements JsonSerializer<Multimap<K, V>>, JsonDeserializer<Multimap<K, V>> {
+    private static final class MultiMapAdapter<K, V> implements JsonSerializer<Multimap<K, V>>,
+            JsonDeserializer<Multimap<K, V>> {
 
         private final Type mapType;
 

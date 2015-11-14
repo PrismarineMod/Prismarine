@@ -1,0 +1,16 @@
+[
+{
+  "modid": "prismarine",
+  "name": "Prismarine",
+  "description": "The cake is a lie.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["PrismarineMod"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
